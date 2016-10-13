@@ -11,6 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/'], function () {
+
+    Route::get('login', function () {
+       return view ('autenticacao/login');
+    });
+    Route::post('login', 'AutenticacaoController@login');
+
+    Route::get('logout', 'AutenticacaoController@logout')->name('logout');
+
+});
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'tipos', 'tipos' => ['Admin']], function () {
+        Route::get('/', function () {
+            return view('dashboard/dashboard');
+        });
+    });
+});
+
+Route::group(['middleware' => 'auth'], function () {
+   Route::get('categorias', 'Admin\CategoriaController@index')->name('categoria.list');
+   Route::get('categorias/criar', 'Admin\CategoriaController@create')->name('categoria.create');
+   Route::post('categorias/salvar', 'Admin\CategoriaController@store')->name('categoria.store');
 });

@@ -17,6 +17,7 @@ class CreateExerciciosTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->text('descricao');
+            $table->string('imagem');
             $table->integer('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();

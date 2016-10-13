@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
         /*
          * Package Service Providers...
          */

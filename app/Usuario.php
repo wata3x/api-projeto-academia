@@ -27,9 +27,14 @@ class Usuario extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function tipos()
+    public function tipo()
     {
         return $this->belongsToMany(Tipo::class);
+    }
+
+    public function dieta()
+    {
+        return $this->hasMany(Dieta::class);
     }
 
     public function temAlgumTipo($tipos)
@@ -50,7 +55,7 @@ class Usuario extends Authenticatable
 
     public function temTipo($tipo)
     {
-        if ($this->tipos()->where('nome', $tipo)->first()) {
+        if ($this->tipo()->where('nome', $tipo)->first()) {
             return true;
         }
         return false;

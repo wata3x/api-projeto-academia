@@ -21,13 +21,13 @@ class UsuarioTableSeeder extends Seeder
         $usuario->email = 'felliperocha@test.com';
         $usuario->password = bcrypt('123456');
         $usuario->save();
-        $usuario->tipos()->attach($tipo_admin);
+        $usuario->tipo()->attach($tipo_admin);
 
         $usuario = new Usuario();
         $usuario->nome = 'Victoria Neves';
         $usuario->email = 'vivi@test.com';
         $usuario->password = bcrypt('123456');
         $usuario->save();
-        $usuario->tipos()->attach($tipo_cliente);
+        $usuario->tipo()->attach($tipo_cliente);
     }
 }

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Exercicio extends Model
+class Dieta extends Model
 {
     protected $fillable = [
         'nome', 'descricao'
     ];
 
-    public function categoria()
+    public function usuario()
     {
-       return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Usuario::class);
     }
 }

@@ -5,25 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AutenticacaoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'logout']);
+    }
+
+
+    public function loginView()
+    {
+        return view('autenticacao.login');
+    }
+
     public function login(Request $request)
     {
-        $credenciais = $request->only('email', 'password');
+        $this->validate($request, [
+            'email' => ['required', 'max:150', 'email'],
+            'password' => ['required', 'min:6', 'max:30']
+        ]);
+        $credenciais = $request->only(['email', 'password']);
 
-        try {
-            $token = JWTAuth::attempt($credenciais);
-        } catch (JWTException $ex) {
-            return response()->json(['erro' => 'nao foi possivel criar o token'], 500);
+        if (!Auth::attempt($credenciais)) {
+            return redirect()->back()
+                ->with('Falhou', 'Credenciais inválidas')
+                ->withInput();
         }
+        return redirect('dashboard');
+    }
 
-        if (!$token) {
-            return response()->json(['erro' => 'credenciais inválidas'], 401);
-        }
+    public function logout()
+    {
+        Auth::logout();
 
-        return response()->json(compact('token'));
+        return redirect('/login');
     }
 }

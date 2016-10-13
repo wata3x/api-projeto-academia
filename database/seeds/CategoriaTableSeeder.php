@@ -12,6 +12,24 @@ class CategoriaTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Categoria::class, 10)->create();
+        $categoria = new Categoria();
+        $categoria->nome = 'Peito';
+        $categoria->save();
+
+        $categoria = new Categoria();
+        $categoria->nome = 'Costas';
+        $categoria->save();
+
+        $categoria = new Categoria();
+        $categoria->nome = 'Ombro';
+        $categoria->save();
+
+        $categoria = new Categoria();
+        $categoria->nome = 'Perna';
+        $categoria->save();
+
+        $categoria = new Categoria();
+        $categoria->nome = 'Trapézio';
+        $categoria->save();
     }
 }
